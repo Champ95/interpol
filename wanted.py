@@ -1,3 +1,24 @@
+class NoticePerson:
+   
+    def __init__(self, forename, date_of_birth, entity_id, nationalities, name, self_href, images_href, thumbnail_href):
+        self.forename = forename
+        self.date_of_birth = date_of_birth
+        self.entity_id = entity_id
+        self.nationalities = nationalities
+        self.name = name
+        self.self_href = self_href
+        self.images_href = images_href
+        self.thumbnail_href = thumbnail_href
+
+    def write_in_file(self, filename):
+        with open(filename, 'a', encoding='UTF-8') as myfile: 
+            try: myfile.write(str(self.forename) + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + str(self.name) 
+                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
+            except: myfile.write(str(self.forename) + "|" + str(self.date_of_birth) + "|" + self.entity_id + "|" + "|" + str(self.name) 
+                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
+    def print_person(self):
+        print(self.forename + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + self.name 
+                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href)
 wanted_by = [ 
     ["AF","Afghanistan"],
     ["AL","Albania"],

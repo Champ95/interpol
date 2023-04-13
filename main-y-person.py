@@ -2,35 +2,9 @@ import requests
 import json
 import wanted
 
-class YellowNoticePerson:
-    forename = ""
-    date_of_birth = ""
-    entity_id = "",
-    nationalities = ""
-    name = ""
-    self_href = ""
-    images_href = ""
-    thumbnail_href = ""
-    
-    def __init__(self, forename, date_of_birth, entity_id, nationalities, name, self_href, images_href, thumbnail_href):
-        self.forename = forename
-        self.date_of_birth = date_of_birth
-        self.entity_id = entity_id
-        self.nationalities = nationalities
-        self.name = name
-        self.self_href = self_href
-        self.images_href = images_href
-        self.thumbnail_href = thumbnail_href
-
-    def write_in_file(self):
-        with open("data-y-person.txt", 'a', encoding='UTF-8') as myfile: 
-            try: myfile.write(str(self.forename) + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + str(self.name) 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
-            except: myfile.write(str(self.forename) + "|" + str(self.date_of_birth) + "|" + self.entity_id + "|" + "|" + str(self.name) 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
-    def print_person(self):
-        print(self.forename + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + self.name 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href)
+class YellowNoticePerson (wanted.NoticePerson):
+    def dec(self):
+        pass  
             
 def take_results(result):
     
@@ -46,7 +20,7 @@ def take_results(result):
             oneYellowNoticePerson = YellowNoticePerson(person["forename"], person["date_of_birth"], person["entity_id"], person["nationalities"],
                                     person["name"], person["_links"]["self"]["href"], person["_links"]["images"]["href"], "NULL")
         finally: 
-            oneYellowNoticePerson.write_in_file()
+            oneYellowNoticePerson.write_in_file('data-y-person.txt')
     
 for nationality in wanted.wanted_by:
     url = 'https://ws-public.interpol.int/notices/v1/yellow?&nationality=' + nationality[0] + '&resultPerPage=160' # by nationality

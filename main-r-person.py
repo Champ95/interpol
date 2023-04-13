@@ -1,36 +1,11 @@
 import requests
 import json
 import wanted
-class RedNoticePerson:
-    forename = ""
-    date_of_birth = ""
-    entity_id = "",
-    nationalities = ""
-    name = ""
-    self_href = ""
-    images_href = ""
-    thumbnail_href = ""
-    
-    def __init__(self, forename, date_of_birth, entity_id, nationalities, name, self_href, images_href, thumbnail_href):
-        self.forename = forename
-        self.date_of_birth = date_of_birth
-        self.entity_id = entity_id
-        self.nationalities = nationalities
-        self.name = name
-        self.self_href = self_href
-        self.images_href = images_href
-        self.thumbnail_href = thumbnail_href
 
-    def write_in_file(self):
-        with open("data-r-person.txt", 'a', encoding='UTF-8') as myfile: 
-            try: myfile.write(str(self.forename) + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + str(self.name) 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
-            except: myfile.write(str(self.forename) + "|" + self.date_of_birth + "|" + self.entity_id + "|" + "|" + str(self.name) 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href + "\n")
-    def print_bst(self):
-        print(self.forename + "|" + self.date_of_birth + "|" + self.entity_id + "|" + self.nationalities[0] + "|" + self.name 
-                         + "|" + self.self_href + "|" + self.images_href + "|" + self.thumbnail_href)
-            
+class RedNoticePerson (wanted.NoticePerson):
+    def dec(self):
+        pass  
+
 def take_results(result):
     
     for bst in result["_embedded"]["notices"]:
@@ -45,7 +20,7 @@ def take_results(result):
             oneRedNoticePerson = RedNoticePerson(bst["forename"], bst["date_of_birth"], bst["entity_id"], bst["nationalities"],
                                     bst["name"], bst["_links"]["self"]["href"], bst["_links"]["images"]["href"], "NULL")
         finally: 
-            oneRedNoticePerson.write_in_file()
+            oneRedNoticePerson.write_in_file('data-r-person.txt')
     
 for country_id in wanted.wanted_by:
     url = 'https://ws-public.interpol.int/notices/v1/red?&arrestWarrantCountryId=' + country_id[0] + '&resultPerPage=160' # Country
