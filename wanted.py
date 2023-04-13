@@ -1,4 +1,4 @@
-wantedBy = [ 
+wanted_by = [ 
     ["AF","Afghanistan"],
     ["AL","Albania"],
     ["DZ","Algeria"],
